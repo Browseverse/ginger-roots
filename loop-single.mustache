@@ -1,0 +1,20 @@
+{{#the_loop}}
+  {{{roots_post_before}}}
+    <article id="post-{{the_ID}}" class="{{post_class}}">
+    {{{roots_post_inside_before}}}
+      <header>
+        <h1 class="entry-title">{{{the_title}}}</h2>
+        {{> roots_entry_meta }}
+      </header>
+      <div class="entry-content">
+        {{{the_content}}}
+      </div>
+      <footer>
+        {{{page_navigation}}}
+        {{{the_tags}}}
+      </footer>
+        {{{comments_template}}}
+      {{{roots_post_inside_after}}}
+    </article>
+  {{{roots_post_after}}}
+{{/the_loop}}
