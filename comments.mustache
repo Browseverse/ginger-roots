@@ -1,0 +1,87 @@
+{{#have_comments}}
+  <section id="comments">
+    <h3>{{comments_number}} &#8220;{{{the_title}}}&#8221;</h3>
+    <ol class="commentlist">
+    <?php wp_list_comments('type=comment&callback=roots_comments'); ?>
+    {{#commentlist}}
+  <li {{{comment_class}}}>
+    <article id="comment-{{comment_ID}}">
+      <header class="comment-author vcard">
+        {{{avatar}}}
+        {{#__}}<cite class="fn">{{comment_author_link}}</cite>{{/__}}
+
+        <time datetime="{{comment_date_c}}"><a href="{{{comment_link}}}">{{{comment_date_time}}}</a></time>
+        {{#edit_comment_link}}<a href="{{{edit_comment_link}}}">{{#__}}(Edit){{/__}}</a>{{/edit_comment_link}}
+      </header>
+
+      {{^approved}}
+          <div class="notice">
+              <p class="bottom">{{#__}}Your comment is awaiting moderation.{{/__}}</p>
+          </div>
+
+      {{/approved}}
+
+      <section class="comment">
+        {{comment_text}}
+      </section>
+
+      {{{comment_reply_link}}}
+
+    </article>
+    {{/commentlist}}
+    </ol>
+    <footer>
+      <nav id="comments-nav">
+        <div class="comments-previous">{{{previous_comments_link}}}</div>
+        <div class="comments-next">{{{next_comments_link}}}</div>
+      </nav>
+    </footer>
+  </section>
+{{/have_comments}}
+{{^have_comments}}
+  {{^comments_open}}
+      <section id="comments">
+        <div class="notice">
+          <p class="bottom">{{#__}}Comments are closed.{{/__}}</p>
+        </div>
+      </section>
+  {{/comments_open}}
+{{/have_comments}}
+{{#comments_open}}
+<section id="respond">
+  <h3>{{{comment_form_title}}}</h3>
+  <p class="cancel-comment-reply">{{{cancel_comment_reply_link}}}</p>
+  {{#comment_registration_and_not_logged_in}}
+  <p>{{#__}}You must be <a href="{{{the_permalink}}}">logged in</a> to post a comment.{{/__}}</p>
+  {{/comment_registration_and_not_logged_in}}
+
+  {{^comment_registration_and_not_logged_in}}
+  <form action="{{{siteurl}}}/wp-comments-post.php" method="post" id="commentform">
+    {{#is_user_logged_in}}
+    <p>{{#__}}Logged in as <a href="{{site_url}}/wp-admin/profile.php">{{user_identity}}</a>.{{/__}} <a href="{{{wp_logout_url}}}" title="{{#__}}Log out of this account{{/__}}">{{#__}}Log out &raquo;{{/__}}</a></p>
+    {{/is_user_logged_in}}
+    {{^is_user_logged_in}}
+    <p>
+      <label for="author">{{#__}}Name{{/__}} {{req}}</label>
+      <input type="text" class="text" name="author" id="author" value="{{comment_author}}" size="22" tabindex="1" {{#req}}aria-required='true'{{/req}}>
+    </p>
+    <p>
+      <label for="email">{{#__}}Email (will not be published){{/__}} {{req}}</label>
+      <input type="email" class="text" name="email" id="email" value="{{comment_author_email}}" size="22" tabindex="2" {{#req}}aria-required='true'{{/req}}>
+    </p>
+    <p>
+      <label for="url">{{#__}}Website{{/__}}</label>
+      <input type="url" class="text" name="url" id="url" value="{{comment_author_url}}" size="22" tabindex="3">
+    </p>
+    {{/is_user_logged_in}}
+    <p>
+      <label for="comment">{{#__}}Comment{{/__}}</label>
+      <textarea name="comment" id="comment" tabindex="4"></textarea>
+    </p>
+    <p><input name="submit" class="button" type="submit" id="submit" tabindex="5" value="{{#__}}Submit Comment{{/__}}"></p>
+    {{{comment_id_fields}}}
+    {{{comment_form_action}}}
+  </form>
+  {{/comment_registration_and_not_logged_in}}
+</section>
+{{/comments_open}}
