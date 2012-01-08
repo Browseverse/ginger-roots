@@ -1,0 +1,14 @@
+{{#the_loop}}
+  {{{roots_post_before}}}
+    {{{roots_post_inside_before}}}
+      {{#is_singular}}
+          <h1>{{{the_title}}}</h1>
+      {{/is_singular}}
+      {{^is_singular}}
+          <h2>{{{the_title}}}</h2>
+      {{/is_singular}}
+          {{{the_content}}}
+          {{{page_navigation}}}
+    {{{roots_post_inside_after}}}
+  {{{roots_post_after}}}
+{{/the_loop}}
