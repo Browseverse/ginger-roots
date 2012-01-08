@@ -1,0 +1,30 @@
+{{^do_have_posts}}
+  <div class="notice">
+    <p class="bottom">{{#__}}Sorry, no results were found.{{/__}}</p>
+  </div>
+  {{> searchform }}
+{{/do_have_posts}}
+{{#the_loop}}
+  {{{roots_post_before}}}
+    <article id="post-{{the_ID}}" class="{{post_class}}">
+    {{{roots_post_inside_before}}}
+      <header>
+        <h2><a href="{{the_permalink}}">{{{the_title}}}</a></h2>
+        {{> roots_entry_meta }}
+      </header>
+      <div class="entry-content">
+        {{{the_excerpt}}}
+      </div>
+      <footer>
+        {{{the_tags}}}
+      </footer>
+    {{{roots_post_inside_after}}}
+    </article>
+  {{{roots_post_after}}}
+{{/the_loop}}
+{{#more_pages}}
+  <nav id="post-nav">
+    <div class="post-previous">{{{previous_posts_link}}}</div>
+    <div class="post-next">{{{next_posts_link}}}</div>
+  </nav>
+{{/more_pages}}
