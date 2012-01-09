@@ -60,7 +60,7 @@ echo $context->render($template);
     $comment_context['avatar'] = get_avatar($comment,$size='32');
     $comment_context['comment_author_link'] = get_comment_author_link();
     $comment_context['comment_date_time'] = sprintf(__('%1$s', 'roots'), get_comment_date(),  get_comment_time());
-    $comment_context['comment_date_c'] = comment_date('c');
+    $comment_context['comment_date_c'] = get_comment_date('c');
     $comment_context['edit_comment_link'] = get_edit_comment_link( $comment->comment_ID );
     $comment_context['comment_link'] = htmlspecialchars( get_comment_link( $comment->comment_ID ) );
     $comment_context['approved'] = ($comment->comment_approved !== '0');
