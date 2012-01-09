@@ -142,6 +142,7 @@ class Rootache extends Mustache {
         $this->bloginfo['name'] = get_bloginfo('name');
         $this->siteurl = get_option('siteurl');
         $this->do_have_posts = !in_the_loop() && have_posts(); /* safe way of calling have_posts without altering state (?) */
+        $this->roots_options = roots_get_theme_options();
 
         /* TODO: these methods should also move to a mustache template / partials */
         $this->previous_posts_link = get_previous_posts_link( __( '&larr; Older posts', 'roots' ) );

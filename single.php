@@ -1,24 +1,18 @@
-<?php get_header(); ?>
-  <?php roots_content_before(); ?>
-    <div id="content" class="<?php echo $roots_options['container_class']; ?>">
-    <?php roots_main_before(); ?>
-      <div id="main" class="<?php echo $roots_options['main_class']; ?>" role="main">
-        <div class="container">
-          <?php roots_loop_before(); ?>
-          <?php get_template_part('loop', 'single'); ?>
-          <?php roots_loop_after(); ?>
-        </div>
-      </div><!-- /#main -->
-    <?php roots_main_after(); ?>
-    <?php roots_sidebar_before(); ?>
-      <aside id="sidebar" class="<?php echo $roots_options['sidebar_class']; ?>" role="complementary">
-      <?php roots_sidebar_inside_before(); ?>
-        <div class="container">
-          <?php get_sidebar(); ?>
-        </div>
-      <?php roots_sidebar_inside_after(); ?>
-      </aside><!-- /#sidebar -->
-    <?php roots_sidebar_after(); ?>
-    </div><!-- /#content -->
-  <?php roots_content_after(); ?>
-<?php get_footer(); ?>
+<?php 
+get_header();
+$template = file_get_contents(dirname(__FILE__) . '/' . basename(__FILE__, '.php').'.mustache');
+$context = new Rootache;
+
+/* getting loop-single */
+ob_start();
+get_template_part('loop', 'single');
+$context->loop_single = ob_get_clean();
+/* getting sidebar */
+ob_start();
+get_sidebar();
+$context->sidebar = ob_get_clean();
+
+echo $context->render($template);
+
+get_footer(); 
+?>
