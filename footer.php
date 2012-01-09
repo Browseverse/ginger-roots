@@ -1,21 +1,22 @@
-  <?php roots_footer_before(); ?>
-    <footer id="content-info" class="<?php global $roots_options; echo $roots_options['container_class']; ?>" role="contentinfo">
-      <?php roots_footer_inside(); ?>
-      <div class="container">
-        <?php dynamic_sidebar('roots-footer'); ?>
-        <p class="copy"><small>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?></small></p>
-      </div>
-    </footer>
-    <?php roots_footer_after(); ?>
-  </div><!-- /#wrap -->
+<?php 
+$template = file_get_contents(dirname(__FILE__) . '/' . basename(__FILE__, '.php').'.mustache');
+$context = new Rootache;
 
-<?php wp_footer(); ?>
-<?php roots_footer(); ?>
+/* getting sidebar */
+ob_start();
+dynamic_sidebar('roots-footer');
+$context->footer_sidebar = ob_get_clean();
 
-  <!--[if lt IE 7]>
-    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
+/* getting wp footer */
+ob_start();
+wp_footer();
+$context->wp_footer = ob_get_clean();
 
-</body>
-</html>
+/* getting roots footer */
+ob_start();
+roots_footer();
+$context->roots_footer = ob_get_clean();
+
+$context->current_year = date('Y');
+echo $context->render($template);
+?>
