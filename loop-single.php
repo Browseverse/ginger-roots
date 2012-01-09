@@ -9,8 +9,4 @@ comments_template();
 $context->comments_template = ob_get_clean();
 
 echo $context->render($template);
-// echo '<!--';
-// print_r($template);
-// print_r($cntext);
-// echo '-->';
 ?>
