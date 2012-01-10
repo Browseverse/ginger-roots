@@ -1,66 +1,53 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+<?php 
+$template = file_get_contents(dirname(__FILE__) . '/' . basename(__FILE__, '.php').'.mustache');
+$context = new Rootache;
 
-  <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
+/* getting language_attributes */
+ob_start();
+language_attributes();
+$context->language_atributes = ob_get_clean();
+/* getting roots_stylesheets */
+ob_start();
+roots_stylesheets();
+$context->roots_stylesheets = ob_get_clean();
+/* getting wp_head */
+ob_start();
+wp_head();
+$context->wp_head = ob_get_clean();
+/* getting roots_head - just in case it's still hooked onto */
+ob_start();
+roots_head();
+$context->roots_head = ob_get_clean();
+/* getting roots_header_before - TODO: convert to mustache partials */
+ob_start();
+roots_header_before();
+$context->roots_header_before = ob_get_clean();
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+/* which framework? */
+$roots_css_framework = $context->roots_options['css_framework'];
+$context->framework_1440 = ($roots_css_framework === '1140');
+$context->framework_adapt = ($roots_css_framework === 'adapt');
+$context->framework_foundation = ($roots_css_framework === 'foundation');
+$context->framework_bootstrap_less = ($roots_css_framework === 'bootstrap_less');
+$context->framework_bootstrap = ($roots_css_framework === 'bootstrp');
+$context->framework_blueprint = ($roots_css_framework === 'blueprint');
 
-  <?php roots_stylesheets(); ?>
+$context->wp_title = wp_title('|', false, 'right');
+$context->body_class = join( ' ', get_body_class( roots_body_class() ) );
+$context->header_image = get_header_image();
+$context->header_image_width = HEADER_IMAGE_WIDTH;
+$context->header_image_height = HEADER_IMAGE_HEIGHT;
+if ($roots_options['clean_menu']) {
+    $context->wp_nav_menu = wp_nav_menu(array('theme_location' => 'primary_navigation', 'walker' => new roots_nav_walker(), 'echo' => false));
+    $context->utility_nav_menu = wp_nav_menu(array('theme_location' => 'utility_navigation', 'walker' => new roots_nav_walker(), 'echo' => false));
+} else { 
+    $context->wp_nav_menu = wp_nav_menu(array('theme_location' => 'primary_navigation', 'echo' => false));
+    $context->utility_nav_menu = wp_nav_menu(array('theme_location' => 'utility_navigation', 'echo' => false));
+}
+$utility_nav = wp_get_nav_menu_object('Utility Navigation');
+$utility_nav_term_id = (int) $utility_nav->term_id;
+$menu_items = wp_get_nav_menu_items($utility_nav_term_id);
+$context->have_utility_menu_items = ($menu_items || !empty($menu_items));
 
-  <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> Feed" href="<?php echo home_url(); ?>/feed/">
-
-  <script src="<?php echo get_template_directory_uri(); ?>/js/libs/modernizr-2.0.6.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="<?php echo get_template_directory_uri(); ?>/js/libs/jquery-1.7.1.min.js"><\/script>')</script>
-
-  <?php wp_head(); ?>
-  <?php roots_head(); ?>
-
-  <script defer src="<?php echo get_template_directory_uri(); ?>/js/plugins.js"></script>
-  <script defer src="<?php echo get_template_directory_uri(); ?>/js/script.js"></script>
-</head>
-
-<body <?php body_class(roots_body_class()); ?>>
-
-  <?php roots_wrap_before(); ?>
-  <div id="wrap" class="container" role="document">
-  <?php roots_header_before(); ?>
-    <header id="banner" class="<?php global $roots_options; echo $roots_options['container_class']; ?>" role="banner">
-      <?php roots_header_inside(); ?>
-      <div class="container">
-
-        <a id="logo" href="<?php echo home_url(); ?>/">
-          <img src="<?php echo get_header_image(); ?>" width="<?php echo HEADER_IMAGE_WIDTH; ?>" height="<?php echo HEADER_IMAGE_HEIGHT; ?>" alt="<?php bloginfo('name'); ?>">
-        </a>
-
-        <nav id="nav-main" role="navigation">
-          <?php if ($roots_options['clean_menu']) { ?>
-            <?php wp_nav_menu(array('theme_location' => 'primary_navigation', 'walker' => new roots_nav_walker())); ?>
-          <?php } else { ?>
-            <?php wp_nav_menu(array('theme_location' => 'primary_navigation')); ?>
-          <?php } ?>
-        </nav>
-
-        <?php
-          $utility_nav = wp_get_nav_menu_object('Utility Navigation');
-          $utility_nav_term_id = (int) $utility_nav->term_id;
-          $menu_items = wp_get_nav_menu_items($utility_nav_term_id);
-          if ($menu_items || !empty($menu_items)) {
-        ?>
-        <nav id="nav-utility">
-          <?php if ($roots_options['clean_menu']) { ?>
-            <?php wp_nav_menu(array('theme_location' => 'utility_navigation', 'walker' => new roots_nav_walker())); ?>
-          <?php } else { ?>
-            <?php wp_nav_menu(array('theme_location' => 'utility_navigation')); ?>
-          <?php } ?>
-        </nav>
-        <?php } ?>
-
-      </div>
-    </header>
-  <?php roots_header_after(); ?>
+echo $context->render($template);
+?>
