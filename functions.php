@@ -117,7 +117,7 @@ class Rootache extends Mustache {
 
     public function init() {
         /* init function is used to (re)-initialize the 'standard'
-         * wordpress variables. This is particularly import from within the loop !
+         * wordpress variables. This is particularly important from within the loop !
          *
          * Note that if you override any of those values 
          * and you use them within the loop, then these values will be
@@ -147,6 +147,19 @@ class Rootache extends Mustache {
         $this->stylesheet_uri = get_stylesheet_uri();
         $this->plugins_url = plugins_url();
         $this->roots_options = roots_get_theme_options();
+
+        /* which framework? */
+        $roots_css_framework = $this->roots_options['css_framework'];
+        $this->framework_960gs_12 = ($roots_css_framework === '960gs_12');
+        $this->framework_960gs_16 = ($roots_css_framework === '960gs_16');
+        $this->framework_960gs_24 = ($roots_css_framework === '960gs_24');
+        $this->framework_1140 = ($roots_css_framework === '1140');
+        $this->framework_adapt = ($roots_css_framework === 'adapt');
+        $this->framework_bootstrap_less = ($roots_css_framework === 'bootstrap_less');
+        $this->framework_bootstrap = ($roots_css_framework === 'bootstrap');
+        $this->framework_blueprint = ($roots_css_framework === 'blueprint');
+        $this->framework_foundation = ($roots_css_framework === 'foundation');
+        $this->framework_less = ($roots_css_framework === 'less');
 
         /* TODO: these methods should also move to a mustache template / partials */
         $this->previous_posts_link = get_previous_posts_link( __( '&larr; Older posts', 'roots' ) );

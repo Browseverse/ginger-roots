@@ -23,19 +23,6 @@ ob_start();
 roots_header_before();
 $context->roots_header_before = ob_get_clean();
 
-/* which framework? */
-$roots_css_framework = $context->roots_options['css_framework'];
-$context->framework_960gs_12 = ($roots_css_framework === '960gs_12');
-$context->framework_960gs_16 = ($roots_css_framework === '960gs_16');
-$context->framework_960gs_24 = ($roots_css_framework === '960gs_24');
-$context->framework_1140 = ($roots_css_framework === '1140');
-$context->framework_adapt = ($roots_css_framework === 'adapt');
-$context->framework_bootstrap_less = ($roots_css_framework === 'bootstrap_less');
-$context->framework_bootstrap = ($roots_css_framework === 'bootstrp');
-$context->framework_blueprint = ($roots_css_framework === 'blueprint');
-$context->framework_foundation = ($roots_css_framework === 'foundation');
-$context->framework_less = ($roots_css_framework === 'less');
-
 $context->have_rgforms = (class_exists('RGForms'));
 
 $context->wp_title = wp_title('|', false, 'right');
