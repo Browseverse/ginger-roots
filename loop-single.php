@@ -1,7 +1,9 @@
 <?php /* Start loop */ ?>
 <?php
 $template = file_get_contents(dirname(__FILE__) . '/' . basename(__FILE__, '.php').'.mustache');
-$context = new Rootache;
+// $context = new Rootache;
+global $context;
+$context->update();
 
 /* getting comments */
 ob_start();

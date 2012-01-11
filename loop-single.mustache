@@ -1,7 +1,7 @@
 {{#the_loop}}
   {{{roots_post_before}}}
     <article id="post-{{the_ID}}" class="{{post_class}}">
-    {{{roots_post_inside_before}}}
+    {{> yoast_breadcrumb }}
       <header>
         <h1 class="entry-title">{{{the_title}}}</h2>
         {{> roots_entry_meta }}
