@@ -5,9 +5,11 @@
         you might be better off converting it into a mustache partial.
         Place it inside the inc/ folder and then call it from any other mustache template
         using {{> partial_name }}
+
+        If you need to add data to the context, you can hook to roots_mustache_context_update
+        (see inc/roots-mustache-actions.php)
 */
 add_action('roots_head', 'roots_bootstrap_head');
-add_action('roots_post_inside_before', 'roots_page_breadcrumb');
 
 function roots_bootstrap_head() {
   /* left out this function just to deal with the mutually exclusive root options
@@ -22,15 +24,6 @@ function roots_bootstrap_head() {
   if ($roots_bootstrap_less_js === true) {
   	$roots_options['bootstrap_javascript'] = false;
   }  
-}
-
-function roots_page_breadcrumb() {
-  global $post;
-  if (function_exists('yoast_breadcrumb')) {
-    if (is_page() && $post->post_parent) {
-      yoast_breadcrumb('<p id="breadcrumbs">','</p>');
-    }
-  }
 }
 
 ?>
