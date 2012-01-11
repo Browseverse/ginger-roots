@@ -7,10 +7,6 @@
         using {{> partial_name }}
 */
 add_action('roots_head', 'roots_bootstrap_head');
-add_action('roots_header_before', 'roots_1140_header_before');
-add_action('roots_header_after', 'roots_1140_header_after');
-add_action('roots_footer_before', 'roots_1140_footer_before');
-add_action('roots_footer_after', 'roots_1140_footer_after');
 add_action('roots_header_before', 'roots_bootstrap_header_before');
 add_action('roots_header_after', 'roots_bootstrap_header_after');
 add_action('roots_footer_before', 'roots_bootstrap_footer_before');
@@ -32,39 +28,6 @@ function roots_bootstrap_head() {
   }  
 }
 
-function roots_1140_header_before() {
-  global $roots_options;
-  $roots_css_framework = $roots_options['css_framework'];
-  if ($roots_css_framework === '1140') {
-    echo '<div class="container"><div class="row">', "\n";
-  }
-}
-
-function roots_1140_header_after() {
-  global $roots_options;
-  $roots_css_framework = $roots_options['css_framework'];
-  if ($roots_css_framework === '1140') {
-    echo "</div></div><!-- /.row /.container -->\n";
-    echo '<div class="container"><div class="row">', "\n";
-  }
-}
-
-function roots_1140_footer_before() {
-  global $roots_options;
-  $roots_css_framework = $roots_options['css_framework'];
-  if ($roots_css_framework === '1140') {
-    echo "</div></div><!-- /.row /.container -->\n";
-    echo '<div class="container"><div class="row">', "\n";
-  }
-}
-
-function roots_1140_footer_after() {
-  global $roots_options;
-  $roots_css_framework = $roots_options['css_framework'];
-  if ($roots_css_framework === '1140') {
-    echo "</div></div><!-- /.row /.container -->\n";
-  }
-}
 function roots_bootstrap_header_before() {
   global $roots_options;
   $roots_css_framework = $roots_options['css_framework'];
