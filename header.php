@@ -6,7 +6,7 @@ $context = new Rootache;
 ob_start();
 language_attributes();
 $context->language_atributes = ob_get_clean();
-/* getting roots_stylesheets */
+/* getting roots_stylesheets - just in case it's still hooked onto */
 ob_start();
 roots_stylesheets();
 $context->roots_stylesheets = ob_get_clean();
@@ -25,12 +25,18 @@ $context->roots_header_before = ob_get_clean();
 
 /* which framework? */
 $roots_css_framework = $context->roots_options['css_framework'];
-$context->framework_1440 = ($roots_css_framework === '1140');
+$context->framework_960gs_12 = ($roots_css_framework === '960gs_12');
+$context->framework_960gs_16 = ($roots_css_framework === '960gs_16');
+$context->framework_960gs_24 = ($roots_css_framework === '960gs_24');
+$context->framework_1140 = ($roots_css_framework === '1140');
 $context->framework_adapt = ($roots_css_framework === 'adapt');
-$context->framework_foundation = ($roots_css_framework === 'foundation');
 $context->framework_bootstrap_less = ($roots_css_framework === 'bootstrap_less');
 $context->framework_bootstrap = ($roots_css_framework === 'bootstrp');
 $context->framework_blueprint = ($roots_css_framework === 'blueprint');
+$context->framework_foundation = ($roots_css_framework === 'foundation');
+$context->framework_less = ($roots_css_framework === 'less');
+
+$context->have_rgforms = (class_exists('RGForms'));
 
 $context->wp_title = wp_title('|', false, 'right');
 $context->body_class = join( ' ', get_body_class( roots_body_class() ) );

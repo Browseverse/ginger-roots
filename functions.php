@@ -130,6 +130,7 @@ class Rootache extends Mustache {
         $this->is_archive = is_archive();
         $this->is_search = is_search();
         $this->is_user_logged_in = is_user_logged_in();
+        $this->is_child_theme = is_child_theme();
         $this->the_permalink = get_permalink();
         $this->the_title = get_the_title();
         $this->the_content = apply_filters('the_content', get_the_content());
@@ -143,6 +144,8 @@ class Rootache extends Mustache {
         $this->siteurl = get_option('siteurl');
         $this->do_have_posts = !in_the_loop() && have_posts(); /* safe way of calling have_posts without altering state (?) */
         $this->template_directory_uri = get_template_directory_uri();
+        $this->stylesheet_uri = get_stylesheet_uri();
+        $this->plugins_url = plugins_url();
         $this->roots_options = roots_get_theme_options();
 
         /* TODO: these methods should also move to a mustache template / partials */
