@@ -14,9 +14,8 @@
   }
 ?>
 <?php
-$template = file_get_contents(dirname(__FILE__) . '/' . basename(__FILE__, '.php').'.mustache');
 global $context;
-$context->update();
+$template = $context->update(__FILE__);
 $context->post_password_required = post_password_required();
 $context->have_comments = have_comments();
 $context->previous_comments_link = get_previous_comments_link( __( '&larr; Older comments', 'roots' ) );

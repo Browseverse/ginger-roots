@@ -1,9 +1,9 @@
-{{^do_have_posts}}
+{{^if_have_posts}}
   <div class="notice">
     <p class="bottom">{{#__}}Sorry, no results were found.{{/__}}</p>
   </div>
   {{> searchform }}
-{{/do_have_posts}}
+{{/if_have_posts}}
 {{#the_loop}}
   {{{roots_post_before}}}
     <article id="post-{{the_ID}}" class="{{post_class}} xxxxx">

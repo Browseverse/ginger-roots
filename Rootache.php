@@ -12,7 +12,7 @@ class Rootache extends Mustache {
     function __construct() {
         parent::__construct();
         /* auto loading partials */
-        $this->_partials = new MustacheLoader(dirname(__FILE__) . '/inc');
+        $this->_partials = new MustacheLoader(dirname(__FILE__) . '/templates');
         $this::init();
         $this->is_page = is_page(); // must be used outside the loop
     }
@@ -46,7 +46,7 @@ class Rootache extends Mustache {
         $this->the_tags = get_the_tag_list('', ', ', ''); /* todo: might want to break this down to array of tags and handle in mustache template */
         $this->bloginfo['name'] = get_bloginfo('name');
         $this->siteurl = get_option('siteurl');
-        $this->do_have_posts = !in_the_loop() && have_posts(); /* safe way of calling have_posts without altering state (?) */
+        $this->if_have_posts = in_the_loop() || have_posts(); /* safe way of calling have_posts without altering state (?) */
         $this->template_directory_uri = get_template_directory_uri();
         $this->stylesheet_uri = get_stylesheet_uri();
         $this->plugins_url = plugins_url();
@@ -70,11 +70,28 @@ class Rootache extends Mustache {
         $this->next_posts_link = get_next_posts_link( __( 'Newer posts &rarr;', 'roots' ) );
         $this->page_navigation = wp_link_pages(array('before' => '<nav id="page-nav"><p>' . __('Pages:', 'roots'), 'after' => '</p></nav>', 'echo' => 0 ));
     }
-    public function update() {
-        /* to allow adding data to the context simply hook to this action
-         * and use the global $context variable
-         */
+
+    /* update performs several key tasks:
+     *
+     * - loads the template based on the php filename
+     * - allows adding data to the context. Simply hook to 'roots_mustache_context_update' action
+     *   and use the global $context variable
+     * - updates context variables outside the loop
+     * - returns the loaded :template
+     * @access public
+     * @param string $php_filename (default: null)
+     * @return string Mustache template (unrendered).
+     */
+    public function update($php_filename = null) {
+        if ($php_filename !== null) {
+            $this->_template = file_get_contents(dirname($php_filename) . '/templates/' . basename($php_filename, '.php').'.mustache');
+        }
+
+        $this->is_page = is_page(); // must be used outside the loop
+        $this->if_have_posts = in_the_loop() || have_posts(); /* safe way of calling have_posts without altering state (?) */
         do_action('roots_mustache_context_update');
+
+        return $this->_template;
     }
     public function __()
     {
