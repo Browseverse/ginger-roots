@@ -1,13 +1,52 @@
-# [Roots Theme](http://rootstheme.com/)
+# Ginger Roots
+
+Ginger Roots is a fork of the incredible Roots Theme mixed together with [{{Mustache}}](http://mustache.github.com/) templates.
+It uses [Mustache.php](https://github.com/bobthecow/mustache.php) to wrap and convert existing .php templates into
+.mustache files.
+
+## Mustache Theme support
+
+Many of the built-in Mustache features are supported, plus wordpress-specific adaptation, including:
+* i18n via custom `{{#__}}{{/__}}` tags
+* partials `{{> }}` to include other templates
+* Wordpress foundations such as the loop (via `{{#the_loop}}`)
+* Pre-populated wordpress context data, e.g. `{{is_singular}}`, `{{the_permalink}}`
+
+* All mustache templates are located inside `templates` folder
+* Templates correspond to their .php counterparts, i.e. there is `page.php` which uses `templates/page.mustache`
+* New templates can be created even without a php counterpart, as long as they don't need new context data
+
+## Why Mustache?
+
+Because it's neat. Wordpress and PHP are very powerful, but adjusting php templates embedded with html can easily become messy.
+Mustache forces you to split application logic and presentation in a nice way. 
+
+## Quick start
+
+* Clone the git repo - `git clone git://github.com/gingerlime/roots.git` - or [download it](https://github.com/gingerlime/roots/zipball/master)
+* Read [Theme Activation](https://github.com/retlehs/roots/wiki/Theme-activation) to understand everything that happens once you activate Roots
+
+Ginger Roots specifics:
+
+Terms:
+* Rootache - the very unattractive name for the Mustache.php sub-class used in Ginger Roots
+* template / $template - the mustache template, before rendering
+* context / $context - the 'storage space' for all data used to render the template. Typically a $context is a Rootache
+  instance.
+
+Editing Templates:
+* Hack away any file in templates/
+
+Adding data or logic:
+* Use the appropriate php file to add data to the context
+* Extend the Rootache class
+
+## [Roots Theme](http://rootstheme.com/)
 
 Roots is a starting WordPress theme made for developers that’s based on [HTML5 Boilerplate](http://html5boilerplate.com/), Starkers, and the most popular CSS frameworks.
 
 Roots includes support for Blueprint CSS, 960 Grid System, 1140px Grid, Adapt.js, Less Framework, Foundation, and Bootstrap with the ability to set site-wide classes for the main content area and the sidebar. There's also the option to not use any CSS framework.
 
-## Quick start
-
-* Clone the git repo - `git clone git://github.com/retlehs/roots.git` - or [download it](https://github.com/retlehs/roots/zipball/master)
-* Read [Theme Activation](https://github.com/retlehs/roots/wiki/Theme-activation) to understand everything that happens once you activate Roots
 
 ## Features
 
