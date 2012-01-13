@@ -1,0 +1,21 @@
+{{{roots_content_before}}}
+<div id="content" class="{{roots_options.container_class}}">
+{{{roots_main_before}}}
+  <div id="main" class="{{roots_options.main_class}}" role="main">
+    <div class="container">
+    <h1>{{#__}}Search Results for{{/__}} {{{search_query}}}</h1>
+      {{{loop_search}}}
+    </div>
+  </div><!-- /#main -->
+{{{roots_main_after}}}
+{{{roots_sidebar_before}}}
+  <aside id="sidebar" class="{{roots_options.sidebar_class}}" role="complementary">
+  {{{roots_sidebar_inside_before}}}
+    <div class="container">
+      {{{sidebar}}}
+    </div>
+  {{{roots_sidebar_inside_after}}}
+  </aside><!-- /#sidebar -->
+{{{roots_sidebar_after}}}
+</div><!-- /#content -->
+{{{roots_content_after}}}
