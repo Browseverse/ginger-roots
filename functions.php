@@ -11,7 +11,7 @@ require_once locate_template('/inc/roots-hooks.php');       // hooks
 require_once locate_template('/inc/roots-actions.php');     // actions
 require_once locate_template('/inc/roots-widgets.php');     // widgets
 require_once locate_template('/inc/roots-custom.php');      // custom functions
-require_once locate_template('/Rootache.php');              // Rootache is the Roots Mustache class
+require_once locate_template('/lib/Rootache.php');          // Rootache is the Roots Mustache class
 require_once locate_template('/inc/roots-mustache-actions.php'); // actions used primarily to set the mustache context
 
 $roots_options = roots_get_theme_options();
