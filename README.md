@@ -7,6 +7,7 @@ It uses [Mustache.php](https://github.com/bobthecow/mustache.php) to wrap and co
 ## Mustache Theme support
 
 Many of the built-in Mustache features are supported, plus wordpress-specific adaptation, including:
+
 * i18n via custom `{{#__}}{{/__}}` tags
 * partials `{{> }}` to include other templates
 * Wordpress foundations such as the loop (via `{{#the_loop}}`)
@@ -29,15 +30,18 @@ Mustache forces you to split application logic and presentation in a nice way.
 Ginger Roots specifics:
 
 Terms:
+
 * Rootache - the very unattractive name for the Mustache.php sub-class used in Ginger Roots
 * template / $template - the mustache template, before rendering
 * context / $context - the 'storage space' for all data used to render the template. Typically a $context is a Rootache
   instance.
 
 Editing Templates:
+
 * Hack away any file in templates/
 
 Adding data or logic:
+
 * Use the appropriate php file to add data to the context
 * Extend the Rootache class
 
