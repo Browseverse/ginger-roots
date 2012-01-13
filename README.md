@@ -24,7 +24,7 @@ Mustache forces you to split application logic and presentation in a nice way.
 
 ## Quick start
 
-* Clone the git repo - `git clone git://github.com/gingerlime/roots.git` - or [download it](https://github.com/gingerlime/roots/zipball/master)
+* Clone the git repo - `git clone git://github.com/gingerlime/ginger-roots.git` - or [download it](https://github.com/gingerlime/ginger-roots/zipball/master)
 * Read [Theme Activation](https://github.com/retlehs/roots/wiki/Theme-activation) to understand everything that happens once you activate Roots
 
 Ginger Roots specifics:
