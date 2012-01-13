@@ -1,41 +1,29 @@
-<?php get_header(); ?>
-  <?php roots_content_before(); ?>
-    <div id="content" class="<?php echo $roots_options['container_class']; ?>">
-    <?php roots_main_before(); ?>
-      <div id="main" class="<?php echo $roots_options['main_class']; ?>" role="main">
-        <div class="container">
-          <h1>
-            <?php if (is_day()) : ?>
-              <?php printf(__('Daily Archives: %s', 'roots'), get_the_date()); ?>
-            <?php elseif (is_month()) : ?>
-              <?php printf(__('Monthly Archives: %s', 'roots'), get_the_date('F Y')); ?>
-            <?php elseif (is_year()) : ?>
-              <?php printf(__('Yearly Archives: %s', 'roots'), get_the_date('Y')); ?>
-            <?php elseif (is_author()) : ?>
-              <?php
-                global $post;
-                $author_id = $post->post_author;
-                printf(__('Author Archives: %s', 'roots'), get_the_author_meta('user_nicename', $author_id));
-              ?>
-            <?php else : ?>
-              <?php single_cat_title(); ?>
-            <?php endif; ?>
-          </h1>
-          <?php roots_loop_before(); ?>
-          <?php get_template_part('loop', 'category'); ?>
-          <?php roots_loop_after(); ?>
-        </div>
-      </div><!-- /#main -->
-    <?php roots_main_after(); ?>
-    <?php roots_sidebar_before(); ?>
-      <aside id="sidebar" class="<?php echo $roots_options['sidebar_class']; ?>" role="complementary">
-      <?php roots_sidebar_inside_before(); ?>
-        <div class="container">
-          <?php get_sidebar(); ?>
-        </div>
-      <?php roots_sidebar_inside_after(); ?>
-      </aside><!-- /#sidebar -->
-    <?php roots_sidebar_after(); ?>
-    </div><!-- /#content -->
-  <?php roots_content_after(); ?>
-<?php get_footer(); ?>
+<?php
+get_header();
+global $context;
+$template = $context->update(__FILE__);
+
+/* getting loop-category */
+ob_start();
+get_template_part('loop', 'category');
+$context->loop_category = ob_get_clean();
+/* getting sidebar */
+ob_start();
+get_sidebar();
+$context->sidebar = ob_get_clean();
+
+$context->is_day = is_day();
+$context->is_month = is_month();
+$context->is_year = is_year();
+$context->is_author = is_author();
+
+if ( !(is_author() || is_year() || is_month() || is_day()) ) {
+    $context->single_cat_title = single_cat_title("", false);
+}
+$author_id = $post->post_author;
+$context->author_name = get_the_author_meta('user_nicename', $author_id);
+
+echo $context->render($template);
+
+get_footer(); 
+?>

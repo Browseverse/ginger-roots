@@ -110,14 +110,16 @@ class Rootache extends Mustache {
     }
 
     public static function _get_the_time($str) { return get_the_time($str); }
+    public static function _get_the_date($str) { return get_the_date($str); }
 
     public function the_loop() { return array('Rootache', '_the_loop'); }
     public function get_the_time() { return array('Rootache', '_get_the_time'); }
+    public function get_the_date() { return array('Rootache', '_get_the_date'); }
 
     /* Translates strings with embedded tags (normally translated using %s placeholders)
      * e.g. :   {{#__}}Hello World{{/__}}
      *          {{#__}}Hello {{something}}{{/__}}
-     *          {{#__}} Date: {{#get_the_time}}c{{/get_the_time}} {{/__}}
+     *          {{#__}} Time: {{#get_the_time}}c{{/get_the_time}} {{/__}}
      */
     public function translate($str) {
         /* Finding sections within the template (e.g. {{#something}}text{{/something}}
