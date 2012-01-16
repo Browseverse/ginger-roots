@@ -13,7 +13,7 @@ class Rootache extends Mustache {
         parent::__construct();
         /* auto loading partials */
         $this->_partials = new MustacheLoader(get_template_directory() . '/templates');
-        $this::init();
+        $this->init();
         $this->is_page = is_page(); // must be used outside the loop
     }
 
