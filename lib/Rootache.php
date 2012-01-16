@@ -93,10 +93,12 @@ class Rootache extends Mustache {
 
         return $this->_template;
     }
-    public function __()
-    {
-        return array('Rootache', 'translate');
-    }
+
+    /* lambda functions */
+    public function the_loop() { return array($this, '_the_loop'); }
+    public function get_the_time() { return array($this, '_get_the_time'); }
+    public function get_the_date() { return array($this, '_get_the_date'); }
+    public function __() { return array($this, 'translate'); }
 
     public function _the_loop($str) { 
         $ret = ""; 
@@ -112,9 +114,6 @@ class Rootache extends Mustache {
     public static function _get_the_time($str) { return get_the_time($str); }
     public static function _get_the_date($str) { return get_the_date($str); }
 
-    public function the_loop() { return array('Rootache', '_the_loop'); }
-    public function get_the_time() { return array('Rootache', '_get_the_time'); }
-    public function get_the_date() { return array('Rootache', '_get_the_date'); }
 
     /* Translates strings with embedded tags (normally translated using %s placeholders)
      * e.g. :   {{#__}}Hello World{{/__}}
